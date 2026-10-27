@@ -806,8 +806,30 @@
      Init
      ═══════════════════════════════════════════ */
 
+function initKakaoShare() {
+  const btn = $('#kakaoShareBtn');
+
+  if (!btn) return;
+
+  if (!window.Kakao) {
+    console.error('Kakao SDK가 로드되지 않았습니다.');
+    return;
+  }
+
+  if (!Kakao.isInitialized()) {
+    Kakao.init(CONFIG.kakao.javascriptKey);
+  }
+
+  btn.addEventListener('click', function () {
+    Kakao.Share.sendCustom({
+      templateId: CONFIG.kakao.templateId
+    });
+  });
+}
+
   async function init() {
     setMetaTags();
+    initKakaoShare();
     initCurtain();
     initHero();
     initCountdown();
