@@ -435,13 +435,6 @@
     if (!button) return;
 
     button.addEventListener('click', function () {
-     <script>
-  (function () {
-    var button = document.getElementById('kakao-share-button');
-
-    if (!button) return;
-
-    button.addEventListener('click', function () {
       if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
         alert('카카오 공유 기능을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.');
         return;
