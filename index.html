@@ -440,18 +440,27 @@
         return;
       }
 
-      Kakao.Share.sendDefault({
-        objectType: 'text',
-        text: '저희 결혼식에 초대합니다 💗 아래 링크에서 청첩장을 확인해 주세요!',
-        link: {
-          webUrl: window.location.href,
-          mobileWebUrl: window.location.href
-        },
-        buttonTitle: '청첩장 보기'
-      });
-    });
-  })();
-</script>
+     Kakao.Share.sendDefault({
+  objectType: 'feed',
+  content: {
+    title: '저희 결혼식에 초대합니다 💗',
+    description: '아래 링크에서 청첩장을 확인해 주세요!',
+    imageUrl: 'https://hyukeul.github.io/my_wedding_/images/og/1.jpg',
+    link: {
+      webUrl: 'https://hyukeul.github.io/my_wedding_/',
+      mobileWebUrl: 'https://hyukeul.github.io/my_wedding_/'
+    }
+  },
+  buttons: [
+    {
+      title: '청첩장 보기',
+      link: {
+        webUrl: 'https://hyukeul.github.io/my_wedding_/',
+        mobileWebUrl: 'https://hyukeul.github.io/my_wedding_/'
+      }
+    }
+  ]
+});
     
 <script>
   (function () {
