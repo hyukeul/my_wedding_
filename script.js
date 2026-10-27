@@ -782,3 +782,62 @@
     init();
   }
 })();
+
+/* ═══════════════════════════════════════════
+     Kakao Talk Share
+     ═══════════════════════════════════════════ */
+
+  function initKakaoShare() {
+    const btn = $('#kakaoShareBtn');
+    if (!btn) return;
+
+    // 카카오 JavaScript 키로 SDK 초기화
+    Kakao.init('373d7e4ef4385fef5acaa41dbed1ad77');
+
+    btn.addEventListener('click', () => {
+      Kakao.Share.sendCustom({
+        templateId: 138436
+      });
+    });
+  }
+
+
+  /* ═══════════════════════════════════════════
+     Init
+     ═══════════════════════════════════════════ */
+
+  async function init() {
+    setMetaTags();
+    initCurtain();
+    initHero();
+    initCountdown();
+    initGreeting();
+    initCalendar();
+
+    showLoadingPlaceholders();
+
+    initPhotoModal();
+    initLocation();
+    initAccounts();
+    initFooter();
+    initScrollAnimations();
+    initKakaoShare();
+
+    $('#storyTitle').textContent = CONFIG.story.title;
+    $('#storyContent').textContent = CONFIG.story.content;
+
+    const [storyImages, galleryImages] = await Promise.all([
+      loadImagesFromFolder('story'),
+      loadImagesFromFolder('gallery')
+    ]);
+
+    initStory(storyImages);
+    initGallery(galleryImages);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
