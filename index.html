@@ -405,8 +405,53 @@
   Kakao.init('373d7e4ef4385fef5acaa41dbed1ad77');
   console.log('Kakao SDK:', Kakao.isInitialized());
 </script>
+
+    <!-- 카카오톡 공유 버튼 -->
+<div style="text-align: center; padding: 30px 16px;">
+  <button
+    id="kakao-share-button"
+    type="button"
+    style="
+      background: #FEE500;
+      color: #191919;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    "
+  >
+    카카오톡으로 청첩장 공유하기 💛
+  </button>
+</div>
     
     <script src="script.js"></script>
+
+    <script>
+  (function () {
+    var button = document.getElementById('kakao-share-button');
+
+    if (!button) return;
+
+    button.addEventListener('click', function () {
+      if (typeof Kakao === 'undefined' || !Kakao.isInitialized()) {
+        alert('카카오 공유 기능을 불러오지 못했어요. 잠시 후 다시 시도해 주세요.');
+        return;
+      }
+
+      Kakao.Share.sendDefault({
+        objectType: 'text',
+        text: '저희 결혼식에 초대합니다 💗 아래 링크에서 청첩장을 확인해 주세요!',
+        link: {
+          webUrl: window.location.href,
+          mobileWebUrl: window.location.href
+        },
+        buttonTitle: '청첩장 보기'
+      });
+    });
+  })();
+</script>
     
 <script>
   (function () {
