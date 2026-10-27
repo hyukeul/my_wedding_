@@ -86,9 +86,4 @@ const CONFIG = {
 };
 
 const CONFIG = {
-  kakao: {
-    javascriptKey: "373d7e4ef4385fef5acaa41dbed1ad77",
-    templateId: 138436
-  },
-
   useCurtain: true,
