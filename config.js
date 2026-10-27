@@ -87,3 +87,5 @@ const CONFIG = {
 
 const CONFIG = {
   useCurtain: true,
+
+    groom: {
