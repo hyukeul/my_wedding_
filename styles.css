@@ -1339,3 +1339,26 @@ a {
 .btn--kakao-share:active {
   transform: translateY(1px);
 }
+
+.kakao-share-section {
+  padding: 20px 20px 40px;
+  text-align: center;
+}
+
+.btn--kakao-share {
+  width: 100%;
+  max-width: 320px;
+  padding: 15px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #FEE500;
+  color: #191919;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn--kakao-share:active {
+  transform: translateY(1px);
+}
