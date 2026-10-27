@@ -84,8 +84,3 @@ const CONFIG = {
     description: "2027년 3월 6일, 소중한 분들을 초대합니다."
   }
 };
-
-const CONFIG = {
-  useCurtain: true,
-
-    groom: {
