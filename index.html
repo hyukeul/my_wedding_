@@ -406,25 +406,56 @@
   console.log('Kakao SDK:', Kakao.isInitialized());
 </script>
 
-    <!-- 카카오톡 공유 버튼 -->
-<div style="text-align: center; padding: 30px 16px;">
+   <!-- 카카오톡 공유 버튼 -->
+<div class="kakao-share-wrap">
   <button
     id="kakao-share-button"
     type="button"
-    style="
-      background: #FEE500;
-      color: #191919;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    "
+    class="kakao-share-button"
   >
-    카카오톡으로 청첩장 공유하기 💛
+    <span class="kakao-share-icon">♥</span>
+    <span>카카오톡으로 청첩장 공유하기 💛</span>
   </button>
 </div>
+
+<style>
+  .kakao-share-wrap {
+    text-align: center;
+    padding: 30px 16px;
+  }
+
+  .kakao-share-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    width: 100%;
+    max-width: 320px;
+    min-height: 54px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 30px;
+    background: #75856B;
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: -0.3px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(80, 100, 72, 0.12);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .kakao-share-button:active {
+    background: #627458;
+    transform: scale(0.98);
+  }
+
+  .kakao-share-icon {
+    font-size: 15px;
+    color: #F7E7B2;
+  }
+</style>
     
     <script src="script.js?v=2"></script>
 
