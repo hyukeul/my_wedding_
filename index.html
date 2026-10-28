@@ -534,17 +534,24 @@
 
   if (!button || !music) return;
 
+  // 처음에는 음표 표시
+  button.textContent = '♫';
+  button.setAttribute('aria-label', '배경음악 재생');
+
   button.addEventListener('click', function () {
     if (music.paused) {
       music.play().then(function () {
-        button.textContent = 'Ⅱ';
+        // 음악 재생 중에는 음표
+        button.textContent = '♫';
         button.setAttribute('aria-label', '배경음악 일시정지');
       }).catch(function () {
         alert('음악을 재생할 수 없어요. 음원 파일 경로를 확인해 주세요.');
       });
     } else {
       music.pause();
-      button.textContent = '♫';
+
+      // 음악을 끄면 음소거 아이콘
+      button.textContent = '🔇';
       button.setAttribute('aria-label', '배경음악 재생');
     }
   });
