@@ -143,9 +143,12 @@
 
     namesEl.textContent = `${CONFIG.groom.name}  &  ${CONFIG.bride.name}`;
 
-    btn.addEventListener('click', () => {
-      curtain.classList.add('is-open');
-      document.body.classList.remove('no-scroll');
+  // 화환 반입 불가 안내 팝업 표시
+      const noticeOverlay = document.getElementById('wedding-notice-overlay');
+      if (noticeOverlay) {
+        noticeOverlay.style.display = 'flex';
+      }
+
       setTimeout(() => {
         curtain.classList.add('is-hidden');
         initFallingLeaves();
