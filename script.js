@@ -143,15 +143,25 @@
 
     namesEl.textContent = `${CONFIG.groom.name}  &  ${CONFIG.bride.name}`;
 
-  // 화환 반입 불가 안내 팝업 표시
-      const noticeOverlay = document.getElementById('wedding-notice-overlay');
-      if (noticeOverlay) {
-        noticeOverlay.style.display = 'flex';
+   btn.addEventListener('click', () => {
+      curtain.classList.add('is-open');
+      document.body.classList.remove('no-scroll');
+
+      // 배경음악 버튼 표시
+      const musicButton = document.getElementById('music-toggle');
+      if (musicButton) {
+        musicButton.style.display = 'flex';
       }
 
+      // 커튼이 사라진 뒤 안내 팝업 표시
       setTimeout(() => {
         curtain.classList.add('is-hidden');
         initFallingLeaves();
+
+        const noticeOverlay = document.getElementById('wedding-notice-overlay');
+        if (noticeOverlay) {
+          noticeOverlay.style.display = 'flex';
+        }
       }, 1400);
     });
 
