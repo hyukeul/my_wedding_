@@ -1,413 +1,69 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="결혼식에 초대합니다. 예식 날짜와 장소, 오시는 길을 확인해 주세요.">
+<style>
+  /* 어르신용: 원래 디자인을 유지하며 필요한 부분만 간소화 */
 
-  <title>결혼식에 초대합니다</title>
+  /* 초 단위 카운트다운 숨기기 */
+  #countdown {
+    display: none !important;
+  }
 
-  <!-- 기존 청첩장의 예식 정보 불러오기 -->
-  <script src="config.js"></script>
+  /* 긴 인사말과 스토리, 갤러리 숨기기 */
+  #greeting,
+  #story,
+  #gallery {
+    display: none !important;
+  }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  /* 계좌번호와 캘린더 기능 숨기기 */
+  #account,
+  .calendar-inline {
+    display: none !important;
+  }
 
-    [hidden] {
-      display: none !important;
-    }
+  /* 구분 장식 줄이기 */
+  .leaf-divider {
+    display: none !important;
+  }
 
-    body {
-      margin: 0;
-      background: #f8f7f3;
-      color: #292929;
-      font-family: Arial, "Malgun Gothic", sans-serif;
-      font-size: 20px;
-      line-height: 1.8;
-      word-break: keep-all;
-    }
+  /* 교통 안내 글씨를 조금 더 크게 */
+  .transport-section {
+    font-size: 17px;
+    line-height: 1.9;
+  }
 
-    body.notice-open {
-      overflow: hidden;
-    }
+  .transport-item h3 {
+    font-size: 19px;
+  }
 
-    main {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 20px 16px 40px;
-    }
+  .transport-item p {
+    font-size: 17px;
+    line-height: 1.9;
+    word-break: keep-all;
+  }
 
-    section {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 25px 20px;
-      margin-bottom: 18px;
-      text-align: center;
-    }
+  /* 예식장 정보 가독성 개선 */
+  .location__venue {
+    font-size: 21px;
+    font-weight: 600;
+  }
 
-    .hero-photo {
-      display: block;
-      width: 100%;
-      max-height: 480px;
-      object-fit: cover;
-      border-radius: 12px;
-    }
+  .location__hall,
+  .location__address,
+  .location__tel {
+    font-size: 17px;
+    line-height: 1.8;
+    word-break: keep-all;
+  }
 
-    h1 {
-      font-size: 30px;
-      line-height: 1.5;
-      margin: 20px 0 12px;
-    }
+  /* 지도 버튼을 누르기 쉽게 */
+  .location__links .btn {
+    min-height: 48px;
+    font-size: 16px;
+  }
 
-    h2 {
-      font-size: 25px;
-      line-height: 1.5;
-      margin: 0 0 18px;
-    }
-
-    p {
-      margin: 10px 0;
-    }
-
-    .date {
-      font-size: 24px;
-      font-weight: bold;
-    }
-
-    .time {
-      font-size: 22px;
-    }
-
-    .venue {
-      font-size: 25px;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    .address {
-      font-size: 20px;
-      line-height: 1.8;
-      margin: 12px 0 20px;
-    }
-
-    .map-photo {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin: 16px 0;
-    }
-
-    .button {
-      display: block;
-      width: 100%;
-      min-height: 60px;
-      padding: 14px 12px;
-      margin-top: 12px;
-      border: 2px solid #526448;
-      border-radius: 12px;
-      background: #526448;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 21px;
-      font-weight: bold;
-      line-height: 1.5;
-    }
-
-    .button.secondary {
-      background: #ffffff;
-      color: #34432e;
-    }
-
-    .hint {
-      font-size: 18px;
-      color: #444444;
-    }
-
-    /* 화환 반입 불가 안내 팝업 */
-    #noticeOverlay {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    .noticeBox {
-      width: 100%;
-      max-width: 440px;
-      padding: 30px 22px;
-      background: #ffffff;
-      border-radius: 18px;
-      text-align: center;
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-    }
-
-    .noticeLabel {
-      color: #526448;
-      font-size: 20px;
-      font-weight: bold;
-      margin: 0 0 10px;
-    }
-
-    .noticeBox h2 {
-      font-size: 29px;
-      line-height: 1.5;
-      margin: 10px 0 20px;
-      color: #292929;
-    }
-
-    .noticeMessage {
-      font-size: 22px;
-      font-weight: bold;
-      line-height: 1.9;
-      margin: 16px 0;
-    }
-
-    .noticeThanks {
-      font-size: 19px;
-      line-height: 1.7;
-      margin: 18px 0 24px;
-    }
-
-    #noticeConfirm {
-      display: block;
-      width: 100%;
-      min-height: 62px;
-      padding: 14px;
-      border: 0;
-      border-radius: 12px;
-      background: #526448;
-      color: #ffffff;
-      font-size: 22px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    #noticeConfirm:focus-visible,
-    .button:focus-visible {
-      outline: 3px solid #bd955e;
-      outline-offset: 3px;
-    }
-  </style>
+  /* 주소 복사 버튼도 크게 */
+  #copyAddressBtn {
+    min-height: 48px;
+    font-size: 16px;
+  }
+</style>
 </head>
-
-<body>
-
-  <!-- 처음 접속하면 안내 팝업부터 표시 -->
-  <div
-    id="noticeOverlay"
-    role="dialog"
-    aria-modal="true"
-    aria-labelledby="noticeTitle"
-  >
-    <div class="noticeBox">
-      <p class="noticeLabel">안내 말씀</p>
-
-      <h2 id="noticeTitle">
-        화환 반입 불가 안내
-      </h2>
-
-      <p class="noticeMessage">
-        예식장 사정으로 인해<br>
-        축하 화환 반입이 불가합니다.
-      </p>
-
-      <p class="noticeThanks">
-        너그러운 양해 부탁드립니다.
-      </p>
-
-      <button id="noticeConfirm" type="button">
-        확인했습니다
-      </button>
-    </div>
-  </div>
-
-  <!-- 확인 버튼을 누르면 청첩장 본문 표시 -->
-  <div id="invitationContent" hidden>
-    <main>
-
-      <!-- 신랑 신부 사진과 초대 문구 -->
-      <section>
-        <img
-          id="couplePhoto"
-          class="hero-photo"
-          src="images/hero/1.jpg"
-          alt="신랑 신부 사진"
-        >
-
-        <h1 id="coupleNames">
-          결혼식에 초대합니다
-        </h1>
-
-        <p>
-          저희 두 사람이 부부의 연을 맺습니다.
-        </p>
-
-        <p>
-          귀한 걸음으로 축복해 주시면 감사하겠습니다.
-        </p>
-      </section>
-
-      <!-- 예식 날짜와 장소 -->
-      <section>
-        <h2>예식 안내</h2>
-
-        <p id="weddingDate" class="date"></p>
-        <p id="weddingTime" class="time"></p>
-
-        <p id="weddingVenue" class="venue"></p>
-        <p id="weddingHall"></p>
-        <p id="weddingAddress" class="address"></p>
-
-        <a
-          id="kakaoMap"
-          class="button"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          hidden
-        >
-          카카오맵으로 길찾기
-        </a>
-
-        <a
-          id="naverMap"
-          class="button secondary"
-          href="#"
-          target="_blank"
-          rel="noopener noreferrer"
-          hidden
-        >
-          네이버 지도로 길찾기
-        </a>
-      </section>
-
-      <!-- 약도 -->
-      <section>
-        <h2>오시는 길</h2>
-
-        <img
-          class="map-photo"
-          src="images/location/1.jpg"
-          alt="예식장 주변 약도"
-        >
-
-        <p class="hint">
-          위의 지도 버튼을 누르면 길찾기를 이용하실 수 있습니다.
-        </p>
-      </section>
-
-    </main>
-  </div>
-
-  <script>
-    (function () {
-      const overlay = document.getElementById('noticeOverlay');
-      const content = document.getElementById('invitationContent');
-      const confirmButton = document.getElementById('noticeConfirm');
-
-      // 안내 팝업이 먼저 표시되도록 설정
-      document.body.classList.add('notice-open');
-
-      // 기존 청첩장의 예식 정보 사용
-      if (typeof CONFIG !== 'undefined') {
-        const groom = CONFIG.groom || {};
-        const bride = CONFIG.bride || {};
-        const wedding = CONFIG.wedding || {};
-
-        document.getElementById('coupleNames').textContent =
-          (groom.name || '신랑') + ' ♥ ' + (bride.name || '신부');
-
-        // 예식 날짜
-        if (wedding.date) {
-          const parts = wedding.date.split('-').map(Number);
-
-          if (
-            parts.length === 3 &&
-            parts.every(Number.isFinite)
-          ) {
-            const date = new Date(
-              parts[0],
-              parts[1] - 1,
-              parts[2]
-            );
-
-            const days = ['일', '월', '화', '수', '목', '금', '토'];
-
-            document.getElementById('weddingDate').textContent =
-              parts[0] + '년 ' +
-              parts[1] + '월 ' +
-              parts[2] + '일 (' +
-              days[date.getDay()] + ')';
-          }
-        }
-
-        // 예식 시간
-        if (wedding.time) {
-          const parts = wedding.time.split(':').map(Number);
-
-          if (parts.length >= 2 && parts.every(Number.isFinite)) {
-            const hour = parts[0];
-            const minute = parts[1];
-            const period = hour < 12 ? '오전' : '오후';
-            const hour12 = hour % 12 || 12;
-
-            document.getElementById('weddingTime').textContent =
-              period + ' ' + hour12 + '시' +
-              (minute ? ' ' + minute + '분' : '');
-          }
-        }
-
-        // 예식장 이름, 홀 이름, 주소
-        document.getElementById('weddingVenue').textContent =
-          wedding.venue || '';
-
-        document.getElementById('weddingHall').textContent =
-          wedding.hall || '';
-
-        document.getElementById('weddingAddress').textContent =
-          wedding.address || '';
-
-        // 기존 지도 링크 재사용
-        const mapLinks = wedding.mapLinks || {};
-
-        const kakaoButton = document.getElementById('kakaoMap');
-        const naverButton = document.getElementById('naverMap');
-
-        if (mapLinks.kakao) {
-          kakaoButton.href = mapLinks.kakao;
-          kakaoButton.hidden = false;
-        }
-
-        if (mapLinks.naver) {
-          naverButton.href = mapLinks.naver;
-          naverButton.hidden = false;
-        }
-
-        document.title =
-          (groom.name || '신랑') + ' ♥ ' +
-          (bride.name || '신부') + ' 결혼식 안내';
-      } else {
-        document.getElementById('weddingDate').textContent =
-          '예식 정보를 불러오지 못했습니다.';
-      }
-
-      // 확인 버튼을 누르면 팝업 닫고 본문 표시
-      confirmButton.addEventListener('click', function () {
-        overlay.style.display = 'none';
-        content.hidden = false;
-        document.body.classList.remove('notice-open');
-      });
-    })();
-  </script>
-
-</body>
-</html>
