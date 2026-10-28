@@ -514,15 +514,38 @@
 </script>
 
 <!-- 배경음악 버튼 -->
-<button id="music-toggle" type="button" aria-label="배경음악 재생"
-  style="position:fixed; right:14px; top:14px; z-index:9999;
-  width:32px; height:32px; padding:0; border:none;
-  border-radius:50%; background:#fffaf5; color:#8b7163;
-  font-size:16px; line-height:32px; text-align:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.12); cursor:pointer;">
-  ♫
+<button id="music-toggle" type="button"
+  aria-label="배경음악 재생"
+  style="
+    position: fixed;
+    right: 14px;
+    top: 14px;
+    z-index: 9999;
+    width: 38px;
+    height: 38px;
+    padding: 0;
+    border: none;
+    border-radius: 12px;
+    background: #F5E7D9;
+    color: #896B58;
+    box-shadow: 0 2px 8px rgba(100,70,50,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  ">
+  <!-- 처음에는 음표 아이콘 -->
+  <svg id="music-icon" width="20" height="20"
+    viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="1.7"
+    stroke-linecap="round" stroke-linejoin="round">
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  </svg>
 </button>
 
+<!-- 배경음악 파일 -->
 <audio id="wedding-music" loop preload="none">
   <source src="audio/wedding-piano.mp3" type="audio/mpeg">
 </audio>
@@ -531,27 +554,35 @@
 (function () {
   var button = document.getElementById('music-toggle');
   var music = document.getElementById('wedding-music');
+  var icon = document.getElementById('music-icon');
 
-  if (!button || !music) return;
+  if (!button || !music || !icon) return;
 
-  // 처음에는 음표 표시
-  button.textContent = '♫';
-  button.setAttribute('aria-label', '배경음악 재생');
+  // 음표 아이콘
+  var musicIcon = `
+    <path d="M9 18V5l12-2v13"/>
+    <circle cx="6" cy="18" r="3"/>
+    <circle cx="18" cy="16" r="3"/>
+  `;
+
+  // 음소거 아이콘
+  var muteIcon = `
+    <polygon points="11 5 6 9 3 9 3 15 6 15 11 19 11 5"/>
+    <line x1="16" y1="9" x2="21" y2="15"/>
+    <line x1="21" y1="9" x2="16" y2="15"/>
+  `;
 
   button.addEventListener('click', function () {
     if (music.paused) {
       music.play().then(function () {
-        // 음악 재생 중에는 음표
-        button.textContent = '♫';
+        icon.innerHTML = musicIcon;
         button.setAttribute('aria-label', '배경음악 일시정지');
       }).catch(function () {
         alert('음악을 재생할 수 없어요. 음원 파일 경로를 확인해 주세요.');
       });
     } else {
       music.pause();
-
-      // 음악을 끄면 음소거 아이콘
-      button.textContent = '🔇';
+      icon.innerHTML = muteIcon;
       button.setAttribute('aria-label', '배경음악 재생');
     }
   });
