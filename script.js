@@ -497,7 +497,7 @@
     }
 
     const initialCount = 9;
-    const batchSize = 9;
+    const batchSize = galleryImages.length;
     let visibleCount = initialCount;
 
     function renderGallery() {
