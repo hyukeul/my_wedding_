@@ -770,15 +770,16 @@
     $('#storyTitle').textContent = CONFIG.story.title;
     $('#storyContent').textContent = CONFIG.story.content;
 
-    // Auto-detect story and gallery images in parallel
-    const [storyImages, galleryImages] = await Promise.all([
-      loadImagesFromFolder('story'),
-      loadImagesFromFolder('gallery')
-    ]);
-
-    // Render sections with discovered images
-    initStory(storyImages);
+    // 갤러리는 파일 확인을 기다리지 않고 먼저 표시
+    const galleryImages = Array.from(
+      { length: 32 },
+      (_, i) => `images/gallery/${i + 1}.jpg`
+    );
     initGallery(galleryImages);
+
+    // 스토리 사진은 기존 방식으로 확인한 뒤 표시
+    const storyImages = await loadImagesFromFolder('story', 2);
+    initStory(storyImages);
   }
 
   if (document.readyState === 'loading') {
