@@ -117,7 +117,11 @@
     };
     setMeta('property', 'og:title', m.title);
     setMeta('property', 'og:description', m.description);
-    setMeta('property', 'og:image', 'images/og/1.jpg');
+    setMeta(
+  'property',
+  'og:image',
+  'https://hyukeul.github.io/my_wedding_/images/og/1.jpg?v=3'
+);
     setMeta('name', 'description', m.description);
   }
 
