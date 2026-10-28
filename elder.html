@@ -32,13 +32,33 @@
     display: none !important;
   }
 
-  /* 긴 인사말, 스토리, 갤러리 숨기기 */
-  #greeting,
-  #story,
-  #gallery {
-    display: none !important;
-  }
+    /* 초대장 열기 화면 없애고 바로 본문 표시 */
+#curtain {
+  display: none !important;
+}
 
+#mainContent {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+body {
+  overflow-y: auto !important;
+}
+
+/* 갤러리와 인사말 다시 표시 */
+#greeting,
+#story,
+#gallery {
+  display: block !important;
+}
+
+/* 갤러리 사진 배치 유지 */
+#galleryGrid {
+  display: grid;
+}
+    
   /* 중간 장식 줄이기 */
   .leaf-divider {
     display: none !important;
