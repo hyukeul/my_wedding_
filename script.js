@@ -485,7 +485,7 @@
      Gallery Section
      ═══════════════════════════════════════════ */
 
-  function initGallery(galleryImages) {
+ function initGallery(galleryImages) {
     const grid = $('#galleryGrid');
     const placeholder = grid.querySelector('.loading-placeholder');
     if (placeholder) placeholder.remove();
@@ -496,16 +496,52 @@
       return;
     }
 
-    galleryImages.forEach((src, i) => {
-      const div = document.createElement('div');
-      div.className = 'gallery__item animate-item';
-      div.setAttribute('data-animate', 'scale-in');
-      div.innerHTML = `<img src="${src}" alt="갤러리 사진 ${i + 1}" loading="lazy">`;
-      div.addEventListener('click', () => openPhotoModal(galleryImages, i));
-      grid.appendChild(div);
-    });
+    const initialCount = 9;
+    const batchSize = 9;
+    let visibleCount = initialCount;
+
+    function renderGallery() {
+      grid.innerHTML = '';
+
+      galleryImages.slice(0, visibleCount).forEach((src, i) => {
+        const div = document.createElement('div');
+        div.className = 'gallery__item animate-item';
+        div.setAttribute('data-animate', 'scale-in');
+        div.innerHTML = `<img src="${src}" alt="갤러리 사진 ${i + 1}" loading="lazy">`;
+        div.addEventListener('click', () => openPhotoModal(galleryImages, i));
+        grid.appendChild(div);
+      });
+
+      let moreButton = document.getElementById('galleryMoreButton');
+
+      if (visibleCount < galleryImages.length) {
+        if (!moreButton) {
+          moreButton = document.createElement('button');
+          moreButton.id = 'galleryMoreButton';
+          moreButton.type = 'button';
+          moreButton.textContent = '사진 더보기';
+          moreButton.className = 'gallery__more-button';
+          moreButton.style.cssText =
+            'display:block;margin:24px auto;padding:12px 28px;border:1px solid currentColor;border-radius:24px;background:transparent;font:inherit;cursor:pointer;';
+          moreButton.addEventListener('click', () => {
+            visibleCount = Math.min(
+              visibleCount + batchSize,
+              galleryImages.length
+            );
+            renderGallery();
+          });
+        }
+
+        grid.insertAdjacentElement('afterend', moreButton);
+      } else if (moreButton) {
+        moreButton.remove();
+      }
+    }
+
+    renderGallery();
   }
 
+  
   /* ═══════════════════════════════════════════
      Photo Modal (with swipe)
      ═══════════════════════════════════════════ */
