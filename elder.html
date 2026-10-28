@@ -23,6 +23,65 @@
 
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
+
+  <style>
+  /* 어르신용 화면: 기존 디자인 유지 */
+
+  /* D-day 카운트다운 숨기기 */
+  #countdown {
+    display: none !important;
+  }
+
+  /* 긴 인사말, 스토리, 갤러리 숨기기 */
+  #greeting,
+  #story,
+  #gallery {
+    display: none !important;
+  }
+
+  /* 중간 장식 줄이기 */
+  .leaf-divider {
+    display: none !important;
+  }
+
+  /* 계좌번호와 캘린더 숨기기 */
+  #account,
+  .calendar-inline {
+    display: none !important;
+  }
+
+  /* 오시는 길 글씨 크게 */
+  .location__venue {
+    font-size: 22px !important;
+    font-weight: 600;
+  }
+
+  .location__hall,
+  .location__address,
+  .location__tel {
+    font-size: 17px !important;
+    line-height: 1.9 !important;
+    word-break: keep-all;
+  }
+
+  /* 교통 안내 글씨 크게 */
+  .transport-item h3 {
+    font-size: 19px !important;
+  }
+
+  .transport-item p {
+    font-size: 17px !important;
+    line-height: 1.9 !important;
+    word-break: keep-all;
+  }
+
+  /* 지도 버튼 누르기 쉽게 */
+  .location__links .btn,
+  #copyAddressBtn {
+    min-height: 48px;
+    font-size: 16px !important;
+  }
+</style>
   
 </head>
   
