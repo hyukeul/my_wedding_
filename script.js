@@ -158,10 +158,6 @@
         curtain.classList.add('is-hidden');
         initFallingLeaves();
 
-        const noticeOverlay = document.getElementById('wedding-notice-overlay');
-        if (noticeOverlay) {
-          noticeOverlay.style.display = 'flex';
-        }
       }, 1400);
     });
 
