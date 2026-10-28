@@ -120,7 +120,7 @@
     setMeta(
   'property',
   'og:image',
-  'https://hyukeul.github.io/my_wedding_/images/og/1.jpg?v=3'
+  'https://hyukeul.github.io/my_wedding_/images/og/1.jpg?v=6'
 );
     setMeta('name', 'description', m.description);
   }
