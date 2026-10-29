@@ -821,7 +821,7 @@
 
     // 갤러리는 파일 확인을 기다리지 않고 먼저 표시
     const galleryImages = Array.from(
-      { length: 32 },
+      { length: 35 },
       (_, i) => `images/gallery/${i + 1}.jpg`
     );
     initGallery(galleryImages);
