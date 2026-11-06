@@ -5,8 +5,8 @@
 
 /* ─── CSS Variables ─── */
 :root {
-     color-scheme: light;
-  forced-color-adjust: none;
+     color-scheme: only light;
+forced-color-adjust: none;
    
   --color-sage: #8B9E7E;
   --color-sage-light: #a8b89e;
