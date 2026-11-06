@@ -68,12 +68,15 @@ forced-color-adjust: none;
 }
 
 html {
+  color-scheme: only light;
+  background-color: #FAFAF5;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
 }
 
 body {
+    color-scheme: only light;
   font-family: var(--font-serif);
   color: var(--color-text);
   background-color: var(--color-bg);
