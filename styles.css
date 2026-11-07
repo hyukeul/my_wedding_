@@ -1321,3 +1321,19 @@ a {
   font-weight: 500;
   color: var(--color-forest-dark);
 }
+
+/* 이미지 원본 색상 유지 */
+img,
+picture,
+video,
+canvas {
+  forced-color-adjust: none;
+  color-scheme: only light;
+}
+
+/* 팝업 색상 유지 */
+#wedding-notice-overlay,
+#wedding-notice-box {
+  color-scheme: only light;
+  forced-color-adjust: none;
+}
