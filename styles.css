@@ -1337,3 +1337,18 @@ canvas {
   color-scheme: only light;
   forced-color-adjust: none;
 }
+
+#wedding-notice-box h2,
+#wedding-notice-box p {
+  color: #594c40 !important;
+}
+
+#wedding-notice-box .notice-highlight {
+  color: #9c7055 !important;
+}
+
+#wedding-notice-close {
+  background-color: #9c8067 !important;
+  background-image: linear-gradient(#9c8067, #9c8067) !important;
+  color: #ffffff !important;
+}
